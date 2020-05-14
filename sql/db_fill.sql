@@ -5,26 +5,25 @@ insert into Store
 values
 ('0800-2000', 400, 'Papadiamantopoulou', 7, 17345, 'Zografou'),
 ('0800-2000', 520, 'Mpiskini', 3, 17545, 'Attiki'),
-('0830-2100', 650, 'Liosion', 7, 15325, 'Patisia'),
 ('0900-2100', 1000, 'Katsoni', '15B', 18020, 'Ilisia');
 
 insert into Category
 (Name)
 values
-('Fresh'),
-('Fridge'),
-('Spirits'),
-('Personal Care'),
-('Home'),
-('Pets');
+('Fresh'), -- 1
+('Fridge'), -- 2
+('Spirits'), -- 3
+('Personal Care'), -- 4
+('Home'), -- 5
+('Pets'); -- 6
 
 insert into Customer 
 (Name, Date_of_birth, Points, Phone_number, Pet, Family_members, Street, Number, Postal_code, City)
 values
-('Marios Mariou', '1993-01-02', 0, '+306978453410', '', 'Mother', 'Mpiskini', 90, 17675, 'Athens'),
-('Kon Skov', '1995-05-08', 10, '6975463423', 'Dog', 'Sister', 'Papagou', 45, 15236, 'Vyronas'),
-('Gill Grant', '1908-02-04', 0, '2107721085', '', '', 'Xlois', 5, 17675, 'Athens'),
-('Katerina Mai', '1998-06-11', 560, '6974816552', 'Cat', 'Brother', 'Papagou', 45, 15236, 'Vyronas');
+('Marios Mariou', '1993-01-02', 0, '+306978453410', '', 'Mother', 'Mpiskini', 90, 17675, 'Athens'), -- 1
+('Kon Skov', '1995-05-08', 10, '6975463423', 'Dog', 'Sister', 'Papagou', 45, 15236, 'Vyronas'), -- 2
+('Gill Grant', '1908-02-04', 0, '2107721085', '', '', 'Xlois', 5, 17675, 'Athens'), -- 3
+('Katerina Mai', '1998-06-11', 560, '6974816552', 'Cat', 'Brother', 'Papagou', 45, 15236, 'Vyronas'); -- 4
 
 insert into Product
 (Barcode, Price, Name, Brand_name)
@@ -97,6 +96,22 @@ values
 ('1234567949', 25.00, 'Dog Crate', False),
 ('1234567950', 15.68, 'Cat Crate', False),
 ('1234567951', 5, 'Cat Food 1', False);
+
+insert into Phone_number
+(Store_id, Phone)
+values
+(1, 210772411),
+(2, 210772412),
+(3, 210772413),
+(1, 210772101),
+(2, 210772102),
+(3, 210772103);
+
+
+
+
+
+
 
 
 
