@@ -76,11 +76,11 @@ CREATE TABLE Transaction (
 CREATE TABLE Contains (
 	Card_number int, 
     DateTime timestamp,
-    Product_barcode varchar(13),
+    Product_barcode varchar(13) default '',
     Pieces int,
     primary key (Card_number, DateTime, Product_barcode),
-    foreign key (Card_number, DateTime) references Transaction(Card_number, DateTime) on delete cascade,
-    foreign key (Product_barcode) references Product(Barcode) on delete cascade
+    foreign key (Card_number, DateTime) references Transaction(Card_number, DateTime) on delete cascade on update cascade,
+    foreign key (Product_barcode) references Product(Barcode) on delete cascade on update cascade
 );
 
 CREATE TABLE Provides (
