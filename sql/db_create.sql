@@ -61,22 +61,25 @@ CREATE TABLE Phone_number (
 );   
 
 CREATE TABLE Transaction (
-	Customer_card_number int,
+-- TODO add Store_id
+-- so we can see which store 
+-- the customer visited
+	Card_number int,
     DateTime timestamp,
     Total_amount numeric(15,2),
     Payment_method varchar(10), check (Payment_method in 
 		('Cash', 'Card', 'Points')),
-    primary key (Customer_card_number, DateTime),
-    foreign key (Customer_card_number) references Customer(Card_number) on delete cascade
+    primary key (Card_number, DateTime),
+    foreign key (Card_number) references Customer(Card_number) on delete cascade on update cascade
 ); 
 
 CREATE TABLE Contains (
-	Customer_card_number int, 
+	Card_number int, 
     DateTime timestamp,
     Product_barcode varchar(13),
     Pieces int,
-    primary key (Customer_card_number, DateTime, Product_barcode),
-    foreign key (Customer_card_number, DateTime) references Transaction(Customer_card_number, DateTime) on delete cascade,
+    primary key (Card_number, DateTime, Product_barcode),
+    foreign key (Card_number, DateTime) references Transaction(Card_number, DateTime) on delete cascade,
     foreign key (Product_barcode) references Product(Barcode) on delete cascade
 );
 
