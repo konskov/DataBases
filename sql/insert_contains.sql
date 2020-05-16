@@ -16,6 +16,7 @@ BEGIN
     DECLARE prc numeric(10,2);
     DECLARE C INT;
     DECLARE DT timestamp;
+    DECLARE ST INT;
     SET @AMOUNT = 0;
     
     SELECT COUNT(*) FROM Transaction INTO n;
@@ -24,7 +25,7 @@ BEGIN
     WHILE k < n_customers DO 
 		WHILE i < n DO 
 		
-			SELECT T.Card_number, T.DateTime INTO C, DT
+			SELECT T.Card_number, T.DateTime, T.Store_id INTO C, DT, ST
 			FROM Transaction AS T        
 			LIMIT i, 1;
 			
@@ -32,9 +33,9 @@ BEGIN
 			WHILE j < @ITEMS DO
 				SET @PCS = FLOOR(RAND()*3 + 1);
 				SELECT P.Barcode, P.Price INTO brc, prc 
-				FROM Product AS P -- ORDER BY P.Barcode
+				FROM Product AS P -- ORDER BY RAND()
 				LIMIT j, 1;
-				INSERT INTO Contains (Card_number, DateTime, Product_barcode, Pieces) VALUES (C, DT, brc, @PCS);
+				INSERT INTO Contains (Card_number, DateTime, Store_id, Product_barcode, Pieces) VALUES (C, DT, ST, brc, @PCS);
 				-- UPDATE Contains SET Product_barcode = brc, Pieces = @PCS 
 	--             WHERE Card_number = C AND DateTime = DT;
 				SET @AMOUNT = @AMOUNT + prc;
@@ -42,7 +43,7 @@ BEGIN
 			END WHILE;
 			SET j = 0;
 			UPDATE Transaction SET Total_amount = @AMOUNT 
-			WHERE Card_number = C AND DateTime = DT;
+			WHERE Card_number = C AND DateTime = DT AND Store_id = ST;
 			SET @AMOUNT = 0;
 			SET i = i + 1;
 		END WHILE;    

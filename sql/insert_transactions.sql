@@ -15,9 +15,10 @@ BEGIN
             IF (@R < 0.5) THEN SET @METHOD = 'Cash';
             ELSE SET @METHOD = 'Card';
             END IF;
-                        
-			INSERT INTO Transaction (Card_number, DateTime, Total_amount, Payment_method) 
-            VALUES(i, @TS, NULL, @METHOD);
+            
+            SET @STORE = FLOOR(RAND()*3 + 1);            
+			INSERT INTO Transaction (Card_number, DateTime, Store_id, Total_amount, Payment_method) 
+            VALUES(i, @TS, @STORE, NULL, @METHOD);
             
 			SET j = j + 1;
         END WHILE;   
