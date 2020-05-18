@@ -26,6 +26,13 @@ AND T.Store_id = S.Store_id
 GROUP BY T.Store_id;
 
 # visiting times for each store
+SELECT ST.Store_id, S.Street, ST.DateTime
+FROM STRATOS AS ST , Store as S
+WHERE ST.Store_id = S.Store_id
+AND ST.Card_number = 1
+-- AND ST.Store_id = 1
+GROUP BY ST.Store_id, ST.DateTime 
+ORDER BY ST.DateTime;
 
 # monthly average money spent
 SELECT MONTH(T.DateTime), SUM(T.Total_amount), COUNT(*)
@@ -33,21 +40,24 @@ FROM Transaction as T
 WHERE T.Card_number = 1
 GROUP BY MONTH(T.DateTime) ; -- hour(T.DateTime);
 
-SET @weeks = (SELECT COUNT(*) 
+SET @min = 
+(SELECT DateTime
 FROM 
-(
-SELECT DISTINCT WEEK(T.DateTime)
-FROM Transaction as T
-GROUP BY WEEK(DateTime)
-) AS SMTH); 
+Transaction 
+WHERE Card_number = 1
+ORDER BY DateTime ASC
+LIMIT 0,1); 
 
-SET @months = (SELECT COUNT(*) 
+SET @max = 
+(SELECT DateTime
 FROM 
-(
-SELECT DISTINCT MONTH(T.DateTime)
-FROM Transaction as T
-GROUP BY MONTH(DateTime)
-) AS SMTH); 
+Transaction 
+WHERE Card_number = 1
+ORDER BY DateTime DESC
+LIMIT 0,1); 
+
+SET @months = abs(period_diff(extract(year_month from @min), extract(year_month from @max))) + 1;
+SET @weeks = WEEK(@max) - WEEK(@min) + 1;
 
 SET @total_spent = (
 SELECT SUM(Total_amount)
@@ -57,20 +67,7 @@ WHERE Card_number = 1);
 # monthly average = total_spent/number of months
 SET @monthly = @total_spent / @months;
 SET @weekly = @total_spent / @weeks;
-
-SELECT @monthly;
-SELECT @weekly;
-
-# weekly average money spent
--- SELECT TMP.WK, TMP.SUM_TOT, SUM(TMP.SUM_TOT)/@weeks FROM 
--- (
--- SELECT WEEK(T.DateTime) AS WK, SUM(T.Total_amount) AS SUM_TOT, COUNT(*)
--- FROM Transaction as T
--- WHERE T.Card_number = 1
--- GROUP BY WEEK(T.DateTime)
--- ) AS TMP
--- GROUP BY TMP.WK;
-
+SELECT @min, @max, @weeks, @months, @weekly, @monthly;
 
 
 
