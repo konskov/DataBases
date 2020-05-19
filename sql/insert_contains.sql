@@ -1,7 +1,6 @@
 DELIMITER $$
 DROP PROCEDURE IF EXISTS insert_contains $$  
 CREATE PROCEDURE insert_contains() 
-
 -- 	   Card_number int, 
 --     DateTime timestamp,
 --     Product_barcode varchar(13),
@@ -28,25 +27,30 @@ BEGIN
 			SELECT T.Card_number, T.DateTime, T.Store_id INTO C, DT, ST
 			FROM Transaction AS T        
 			LIMIT i, 1;
+            DROP TEMPORARY TABLE IF EXISTS TMP;
+			CREATE TEMPORARY TABLE TMP 
+            SELECT * FROM Product ORDER BY RAND();
 			
 			SET @ITEMS = FLOOR(RAND()*5 + 1);
 			WHILE j < @ITEMS DO
 				SET @PCS = FLOOR(RAND()*3 + 1);
-				SELECT P.Barcode, P.Price INTO brc, prc 
-				FROM Product AS P -- ORDER BY RAND()
-				LIMIT j, 1;
+                SELECT P.Barcode, P.Price INTO brc, prc 
+                FROM TMP AS P 
+                LIMIT j, 1;
+				
 				INSERT INTO Contains (Card_number, DateTime, Store_id, Product_barcode, Pieces) VALUES (C, DT, ST, brc, @PCS);
-				-- UPDATE Contains SET Product_barcode = brc, Pieces = @PCS 
-	--             WHERE Card_number = C AND DateTime = DT;
-				SET @AMOUNT = @AMOUNT + prc;
+				
+				SET @AMOUNT = @AMOUNT + @PCS * prc;
 				SET j = j + 1;
 			END WHILE;
 			SET j = 0;
+            DROP TEMPORARY TABLE IF EXISTS TMP;
 			UPDATE Transaction SET Total_amount = @AMOUNT 
 			WHERE Card_number = C AND DateTime = DT AND Store_id = ST;
 			SET @AMOUNT = 0;
 			SET i = i + 1;
-		END WHILE;    
+		END WHILE; 
+        SET k = k + 1;
 	END WHILE;	
     
     

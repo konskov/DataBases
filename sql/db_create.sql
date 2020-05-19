@@ -106,10 +106,10 @@ CREATE TABLE Offers (
 
 CREATE TABLE Older_prices (
 	Product_barcode varchar(13),
-    Start_date date,
+    Start_date timestamp,
     Price real,
-    End_date date,
+    End_date timestamp,
     primary key (Product_barcode, Start_date),
     foreign key (Product_barcode) references Product(Barcode) on delete cascade,
-    constraint check_date check (Start_date < End_date) 
+    constraint check_date check ((Start_date <= End_date) or End_date = NULL) 
 );

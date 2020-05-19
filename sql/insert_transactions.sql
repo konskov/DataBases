@@ -4,10 +4,13 @@ CREATE PROCEDURE insert_transactions()
 BEGIN
 	DECLARE i INT DEFAULT 1;
     DECLARE j INT DEFAULT 1;
+    DECLARE n_customers INT DEFAULT 0;
 	SET @MIN = '2020-05-13 09:00:00';
     SET @MAX = '2020-05-13 21:00:00';
     
-    WHILE i < 5 DO 
+    SELECT COUNT(*) FROM Customer INTO n_customers;
+    
+    WHILE i < n_customers + 1 DO 
 		WHILE j < 10 DO
 			SET @TS = (SELECT TIMESTAMPADD(SECOND, FLOOR(RAND() 
 			* TIMESTAMPDIFF(SECOND, @MIN, @MAX)), @MIN));
