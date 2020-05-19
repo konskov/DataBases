@@ -20,5 +20,8 @@ P.Barcode = C.Product_barcode AND
 P.Category_id = Cat.Category_id AND
 T.Total_amount = (SELECT MAX(Total_amount) FROM Agores_i) 
 
-
+SELECT T.Datetime, T.Total_amount, T.Store_id, C.COUNT(*)
+FROM Transaction as T, Contains as C
+WHERE 
+    C.Card_number = T.Card_number AND T.DateTime = C.DateTime AND T.Total_amount > 1 AND T.Store_id = 1 AND T.DateTime LIKE 
 
