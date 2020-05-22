@@ -2,6 +2,7 @@
 SELECT T.DateTime, T.Card_number, T.Store_id, P1.Barcode, P2.Barcode, COUNT(*)
 FROM Product AS P1, Product AS P2, Transaction as T, Contains as C1, Contains as C2
 WHERE
+# T.Card_number = 1 AND
 T.Card_number = C1.Card_number 
 AND T.DateTime = C1.DateTime
 AND T.Store_id = C1.Store_id 
@@ -57,6 +58,35 @@ AND T.Store_id = 3
 GROUP BY O.Alley_number, O.Shelf_number
 ORDER BY COUNT(*) DESC;
 
+# wres pou ksodeuontai ta perissotera lefta
+SELECT T.Store_id, HOUR(T.DateTime), SUM(T.Total_amount) , COUNT(*)
+FROM Transaction as T
+GROUP BY HOUR(DateTime), T.Store_id
+ORDER BY T.Store_id, SUM(T.Total_amount) DESC;
+
+# pososto twn synallagwn pou ginontai kathe wra sto katasthma apo 
+# atoma pou anikoun sto kathe age group
+SELECT hour(DateTime) AS Hour, Age_group, count(*) AS Count
+FROM  (
+SELECT *
+FROM Transaction as T
+natural join Customer as C
+NATURAL JOIN
+(
+SELECT Card_number,
+(
+	CASE
+		WHEN Age < 30 THEN "18 - 30"
+        WHEN Age BETWEEN 30 AND 50 THEN "30 - 50"
+        WHEN Age > 50 THEN "50+"
+    END) as Age_group
+FROM 
+(SELECT Card_number, TIMESTAMPDIFF(YEAR, Date_of_birth, CURDATE()) AS Age FROM Customer) as sk
+) as sk
+) as sk
+where Store_id = 1
+group by hour(DateTime), Age_group
+order by hour(DateTime);
 
 
 

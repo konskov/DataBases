@@ -20,10 +20,14 @@ values
 insert into Customer 
 (Name, Date_of_birth, Points, Phone_number, Pet, Family_members, Street, Number, Postal_code, City)
 values
-('Marios Mariou', '1993-01-02', 0, '+306978453410', '', 'Mother', 'Mpiskini', 90, 17675, 'Athens'), -- 1
-('Kon Skov', '1995-05-08', 10, '6975463423', 'Dog', 'Sister', 'Papagou', 45, 15236, 'Vyronas'), -- 2
-('Gill Grant', '1908-02-04', 0, '2107721085', '', '', 'Xlois', 5, 17675, 'Athens'), -- 3
-('Katerina Mai', '1998-06-11', 560, '6974816552', 'Cat', 'Brother', 'Papagou', 45, 15236, 'Vyronas'); -- 4
+('Marios Mariou', '1993-01-02', 0, '+306978453410', '', 'Mother', 'Mpiskini', 90, 17675, 'Athens'), -- 1 (18-30)
+('Kon Skov', '1995-05-08', 10, '6975463423', 'Dog', 'Sister', 'Papagou', 45, 15236, 'Vyronas'), -- 2 (18-30)
+('Gill Grant', '1908-02-04', 0, '2107721085', '', '', 'Xlois', 5, 17675, 'Athens'), -- 3 (50+)
+('Katerina Mai', '1998-06-11', 560, '6974816552', 'Cat', 'Brother', 'Papagou', 45, 15236, 'Vyronas'), -- 4 (18-30)
+('Katerina Kapa', '1978-06-11', 60, '6974814552', 'Cat', 'Brother', 'Papagou', 45, 15236, 'Vyronas'), -- 5 (age group 30-50)
+('Kyros Ji', '1981-04-18', 0, '6974818552', 'Cat', '', 'Papagou', 4, 15236, 'Vyronas'), -- 6 (30-50)
+('Kyra Koula', '1948-06-11', 30, '6974817552', 'Cat', 'Brother', 'Papagou', 45, 15236, 'Vyronas'); -- 7 (50+)
+
 
 insert into Product
 (Category_id, Barcode, Price, Name, Brand_name)
@@ -84,8 +88,9 @@ values
 (1,'1234567938', 2.45, 'Apples 1kg', False),
 (1,'1234567939', 14.65, 'Meat Beef 1kg', False),
 (1,'1234567940', 0.70, 'Lettuce 1pc', False),
+(1,'1234567941', 1.70, 'Eggs 6pc Own', True),
 -- Pets
-(6,'1234567941', 4.28, 'Cat Food Own', True),
+(6,'1234567952', 4.28, 'Cat Food Own', True),
 (6,'1234567942', 5.68, 'Whiskers 1pc', False),
 (6,'1234567943', 5.68, 'Dog Food Own', True),
 (6,'1234567944', 5.90, 'Dog Food 1', False),
