@@ -5,13 +5,13 @@ BEGIN
 	DECLARE i INT DEFAULT 1;
     DECLARE j INT DEFAULT 1;
     DECLARE n_customers INT DEFAULT 0;
-	SET @MIN = '2020-05-13 09:00:00';
-    SET @MAX = '2020-05-13 21:00:00';
+	SET @MIN = '2020-03-01 09:00:00';
+    SET @MAX = '2020-05-31 21:00:00';
     
     SELECT COUNT(*) FROM Customer INTO n_customers;
     
     WHILE i < n_customers + 1 DO 
-		WHILE j < 10 DO
+		WHILE j < 70 DO
 			SET @TS = (SELECT TIMESTAMPADD(SECOND, FLOOR(RAND() 
 			* TIMESTAMPDIFF(SECOND, @MIN, @MAX)), @MIN));
             SET @R = RAND();

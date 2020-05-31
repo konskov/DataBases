@@ -1,5 +1,5 @@
 # dhmofilestera zeugh proiontwn 
-SELECT T.DateTime, T.Card_number, T.Store_id, P1.Barcode, P2.Barcode, COUNT(*)
+explain SELECT T.DateTime, T.Card_number, T.Store_id, P1.Barcode, P2.Barcode, COUNT(*)
 FROM Product AS P1, Product AS P2, Transaction as T, Contains as C1, Contains as C2
 WHERE
 # T.Card_number = 1 AND
@@ -45,7 +45,7 @@ SELECT cast((1.0*@bn / @total *100) as decimal(10,2)) as percentage;
 # dhmofileis theseis tou katasthmatos
 # alley_number opou ginontai oi perissoteres pwlhseis
 # douleuei to query alla kalo tha htan na prosthesw merika proionta
-SELECT O.Alley_number,O.Shelf_number, COUNT(*)  
+explain SELECT O.Alley_number,O.Shelf_number, COUNT(*)  
 FROM Transaction as T, Contains as C, Product as P, Offers as O
 WHERE 
 T.DateTime = C.DateTime

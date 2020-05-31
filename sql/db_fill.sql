@@ -3,9 +3,9 @@ use testdb;
 insert into Store
 (Operating_hours, Size, Street, Number, Postal_code, City)
 values
-('0800-2000', 400, 'Papadiamantopoulou', 7, 17345, 'Zografou'),
-('0800-2000', 520, 'Mpiskini', 3, 17545, 'Attiki'),
-('0900-2100', 1000, 'Katsoni', '15B', 18020, 'Ilisia');
+('24/7', 400, 'Papadiamantopoulou', 7, 17345, 'Zografou'),
+('24/7', 520, 'Mpiskini', 3, 17545, 'Attiki'),
+('24/7', 1000, 'Katsoni', '15B', 18020, 'Ilisia');
 
 insert into Category
 (Name)
@@ -26,8 +26,9 @@ values
 ('Katerina Mai', '1998-06-11', 560, '6974816552', 'Cat', 'Brother', 'Papagou', 45, 15236, 'Vyronas'), -- 4 (18-30)
 ('Katerina Kapa', '1978-06-11', 60, '6974814552', 'Cat', 'Brother', 'Papagou', 45, 15236, 'Vyronas'), -- 5 (age group 30-50)
 ('Kyros Ji', '1981-04-18', 0, '6974818552', 'Cat', '', 'Papagou', 4, 15236, 'Vyronas'), -- 6 (30-50)
-('Kyra Koula', '1948-06-11', 30, '6974817552', 'Cat', 'Brother', 'Papagou', 45, 15236, 'Vyronas'); -- 7 (50+)
-
+('Kyra Koula', '1948-06-11', 30, '6974817552', 'Cat', 'Brother', 'Papagou', 45, 15236, 'Vyronas'), -- 7 (50+)
+('Voula Vita', '1988-06-11', 30, '6974889552', 'Cat', 'Brother', 'Papagou', 45, 15236, 'Vyronas'), -- 8 (30-50)
+('Maria Delta', '1957-09-20', 0, '6974815962', 'Dog', 'Sister', 'Ilia Iliou', 58, 16985, 'Athens'); -- 9 (50+)
 
 insert into Product
 (Category_id, Barcode, Price, Name, Brand_name)
@@ -55,8 +56,8 @@ values
 (3,'1234567908', 45.33, 'Vodka', False),
 (3,'1234567909', 4.33, 'Cider Own', True),
 (3,'1234567910', 4.33, 'Somersby', False),
+(3,'1234567911', 8.9, 'Alcohol Own Brand', True),
 -- Home
-(5,'1234567911', 5.33, 'Pillow Own', True),
 (5,'1234567912', 6.73, 'Pillow', False),
 (5,'1234567913', 3.40, 'Chlorine', False),
 (5,'1234567914', 7.33, 'Sheet Cotton Own', True),
@@ -66,8 +67,8 @@ values
 (5,'1234567918', 4.50, 'Plate Blue', False),
 (5,'1234567919', 4.50, 'Plate Pink', False),
 (5,'1234567920', 4.50, 'Plate Silver', False),
+(5,'1234567921', 5.33, 'Pillow Own', True),
 -- Personal care
-(4,'1234567921', 9.34, 'Shampoo 1', True),
 (4,'1234567922', 4.1, 'Razors', False),
 (4,'1234567923', 4.33, 'Personal Care 1', False),
 (4,'1234567924', 7.33, 'Personal Care 2', False),
@@ -77,8 +78,8 @@ values
 (4,'1234567928', 2.58, 'Body Wash', False),
 (4,'1234567929', 6.5, 'Hair Spray', False),
 (4,'1234567930', 4.33, 'Sanitiser Own Brand', True),
+(4,'1234567931', 9.34, 'Shampoo 1', True),
 -- Fresh
-(1,'1234567931', 4.28, 'Oranges 3kg', False),
 (1,'1234567932', 4.69, 'Potatoes 4kg', False),
 (1,'1234567933', 9.62, 'Chicken', False),
 (1,'1234567934', 7.85, 'Fish', False),
@@ -89,9 +90,8 @@ values
 (1,'1234567939', 14.65, 'Meat Beef 1kg', False),
 (1,'1234567940', 0.70, 'Lettuce 1pc', False),
 (1,'1234567941', 1.70, 'Eggs 6pc Own', True),
+(1,'1234567942', 4.28, 'Oranges 3kg', False),
 -- Pets
-(6,'1234567952', 4.28, 'Cat Food Own', True),
-(6,'1234567942', 5.68, 'Whiskers 1pc', False),
 (6,'1234567943', 5.68, 'Dog Food Own', True),
 (6,'1234567944', 5.90, 'Dog Food 1', False),
 (6,'1234567945', 6.68, 'Dog Food 2', False),
@@ -100,7 +100,18 @@ values
 (6,'1234567948', 4.36, 'Fish Food 2', False),
 (6,'1234567949', 25.00, 'Dog Crate', False),
 (6,'1234567950', 15.68, 'Cat Crate', False),
-(6,'1234567951', 5, 'Cat Food 1', False);
+(6,'1234567951', 5, 'Cat Food 1', False),
+(6,'1234567952', 4.28, 'Cat Food Own', True),
+(6,'1234567953', 4.36, 'Fish Food Own', True),
+(6,'1234567954', 5.68, 'Whiskers 1pc', False),
+-- Some more of each
+(6,'1234567955', 3.45, 'Pet Product Own', True),
+(5,'1234567956', 3.95, 'Home Prodcuct Own', True),
+(3,'1234567957', 4.35, 'Some ale Own', True),
+(1,'1234567958', 4.69, 'Pineapple Own', True),
+(2,'1234567859', 5.72, 'Cream 12%', False),
+(4,'1234567960', 7.33, 'Personal Care 6', False);
+
 
 insert into Phone_number
 (Store_id, Phone)

@@ -31,7 +31,7 @@ BEGIN
 			CREATE TEMPORARY TABLE TMP 
             SELECT * FROM Product ORDER BY RAND();
 			
-			SET @ITEMS = FLOOR(RAND()*5 + 1);
+			SET @ITEMS = FLOOR(RAND()*6 + 1);
 			WHILE j < @ITEMS DO
 				SET @PCS = FLOOR(RAND()*3 + 1);
                 SELECT P.Barcode, P.Price INTO brc, prc 
