@@ -10,31 +10,23 @@ INNER JOIN Provides ON Product.Category_id = Provides.Category_id
 INNER JOIN Category ON Category.Category_id = Provides.Category_id
 GROUP BY Contains.Card_number, Contains.Datetime, Contains.Store_id, Product.Barcode;
 
-# 10 most popular products
-# popularity : how many times this product appears 
-# in a transaction (regardless of the number of pieces)
 SELECT DISTINCT ST.Barcode, ST.Name, COUNT(*)
 FROM STRATOS AS ST
 WHERE ST.Card_number = 2 GROUP BY ST.Barcode ORDER BY COUNT(*) DESC
 LIMIT 0,10;
 
-# visited stores
 SELECT T.Store_id, S.Street, COUNT(*)
 FROM Transaction as T, Store as S
 WHERE T.Card_number = 1
 AND T.Store_id = S.Store_id
 GROUP BY T.Store_id;
 
-# visiting times for each store
-SELECT ST.Store_id, S.Street, ST.DateTime
-FROM STRATOS AS ST , Store as S
-WHERE ST.Store_id = S.Store_id
-AND ST.Card_number = 1
--- AND ST.Store_id = 1
-GROUP BY ST.Store_id, ST.DateTime 
-ORDER BY ST.DateTime;
+SELECT Store_id, Street, Datetime
+FROM STRATOS
+WHERE Card_number = 3
+GROUP BY Datetime 
+ORDER BY DateTime;
 
-# monthly average money spent
 SELECT MONTH(T.DateTime), SUM(T.Total_amount), COUNT(*)
 FROM Transaction as T
 WHERE T.Card_number = 1
@@ -64,13 +56,6 @@ SELECT SUM(Total_amount)
 FROM Transaction
 WHERE Card_number = 1);
 
-# monthly average = total_spent/number of months
 SET @monthly = @total_spent / @months;
 SET @weekly = @total_spent / @weeks;
 SELECT @min, @max, @weeks, @months, @weekly, @monthly;
-
-
-
-
-
-
