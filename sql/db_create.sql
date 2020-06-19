@@ -27,7 +27,7 @@ CREATE TABLE Customer (
     Points int default 0 not null,
     Phone_number varchar(14),
     Pet varchar(255),
-    Family_members varchar(255),
+    Family_members int default 0,
     Street varchar(255) not null check (Street <> ''),
     Number int not null,
     Postal_code numeric(5,0) not null, 
@@ -68,6 +68,7 @@ CREATE TABLE Transaction (
 	Card_number int,
     DateTime timestamp,
     Total_amount numeric(15,2),
+    Total_pieces int,
     Payment_method varchar(10), check (Payment_method in 
 		('Cash', 'Card', 'Points')),
     primary key (Card_number, DateTime, Store_id),
@@ -113,3 +114,7 @@ CREATE TABLE Older_prices (
     foreign key (Product_barcode) references Product(Barcode) on delete cascade,
     constraint check_date check ((Start_date <= End_date) or End_date = NULL) 
 );
+
+CREATE UNIQUE INDEX transaction_pk ON Transaction(DateTime, Store_id, Card_number);
+CREATE UNIQUE INDEX category_pk ON Product(Barcode);
+CREATE UNIQUE INDEX contains_pk ON Contains(Product_barcode, Card_number, DateTime, Store_id);
