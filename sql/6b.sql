@@ -66,9 +66,11 @@ SELECT WEEK(DateTime), SUM(Total_amount), COUNT(*), SUM(Total_amount)/COUNT(*)  
 FROM Transaction
 WHERE 
 Card_number = 1 
-GROUP BY WEEK(DateTime);
+GROUP BY WEEK(DateTime)
+ORDER BY WEEK(DateTime);
 
 SELECT MONTH(T.DateTime), SUM(T.Total_amount), COUNT(*), SUM(Total_amount)/COUNT(*)  as Montlhy_average
 FROM Transaction as T
 WHERE T.Card_number = 1
-GROUP BY MONTH(T.DateTime) ; -- hour(T.DateTime);
+GROUP BY MONTH(T.DateTime) 
+ORDER BY MONTH(T.DateTime); -- hour(T.DateTime);
