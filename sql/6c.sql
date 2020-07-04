@@ -59,10 +59,10 @@ GROUP BY O.Alley_number, O.Shelf_number
 ORDER BY COUNT(*) DESC;
 
 # wres pou ksodeuontai ta perissotera lefta
-SELECT T.Store_id, HOUR(T.DateTime), SUM(T.Total_amount) , COUNT(*)
+SELECT HOUR(T.DateTime), SUM(T.Total_amount), COUNT(*)
 FROM Transaction as T
-GROUP BY HOUR(DateTime), T.Store_id
-ORDER BY T.Store_id, SUM(T.Total_amount) DESC;
+GROUP BY HOUR(DateTime)
+ORDER BY SUM(T.Total_amount) DESC;
 
 # pososto twn synallagwn pou ginontai kathe wra sto katasthma apo 
 # atoma pou anikoun sto kathe age group
