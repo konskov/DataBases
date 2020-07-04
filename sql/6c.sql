@@ -17,30 +17,22 @@ ORDER BY COUNT(*) DESC;
 
 # pososto ana kathgoria proiontwn pou empisteuetai o kosmos 
 # label tou katasthmatos
-# asxhmo query alla douleuei
-SET @bn = (SELECT COUNT(*)  
-FROM Transaction as T, Contains as Cn, Category as Ctg, Product as P 
-WHERE Ctg.Category_id = 6
-AND P.Category_id = 6
-AND T.DateTime = Cn.DateTime
-AND T.Card_number = Cn.Card_number 
-AND T.Store_id = Cn.Store_id 
-AND Cn.Product_barcode = P.Barcode
-AND P.Brand_name = True
-ORDER BY T.DateTime);
+select *, bn_count/total_count*100 as percentage from
+(select Category_id, count(*) as bn_count
+from
+(select * from 
+Transaction natural join Contains as C inner join Product as P on Product_barcode = Barcode) as q1
+where Brand_name = True
+group by Category_id) as q1
 
-SET @total = (SELECT COUNT(*)  
-FROM Transaction as T, Contains as Cn, Category as Ctg, Product as P 
-WHERE Ctg.Category_id = 6
-AND P.Category_id = 6
-AND T.DateTime = Cn.DateTime
-AND T.Card_number = Cn.Card_number 
-AND T.Store_id = Cn.Store_id 
-AND Cn.Product_barcode = P.Barcode
-# AND P.Brand_name = True
-ORDER BY T.DateTime);
-
-SELECT cast((1.0*@bn / @total *100) as decimal(10,2)) as percentage;
+natural join 
+(
+SELECT Category_id, COUNT(*) as total_count  
+from
+(select * from 
+Transaction natural join Contains as C inner join Product as P on Product_barcode = Barcode) as q1
+group by Category_id) as q2 
+order by category_id;
 
 # dhmofileis theseis tou katasthmatos
 # alley_number opou ginontai oi perissoteres pwlhseis
